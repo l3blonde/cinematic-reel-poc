@@ -22,13 +22,13 @@ function App() {
                     fontSize: '0.9rem',
                     marginTop: '0.5rem'
                 }}>
-                    Transform dive logs into cinematic social media reels
+                    Transform dive logs into cinematic reels
                 </p>
             </header>
 
             <main>
                 <p style={{ color: 'var(--text-secondary)' }}>
-                    Frontend ready. Upload functionality coming in next bullet.
+                    Frontend ready. Upload functionality coming next.
                 </p>
             </main>
         </div>
