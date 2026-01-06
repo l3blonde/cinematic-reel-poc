@@ -1,4 +1,4 @@
-# Tracer Bullet Plan - Cinematic Reel POC
+# Tracer Bullet Plan: Cinematic Reel POC
 **Ocean's 4 Team**
 
 Quick end-to-end build
@@ -110,18 +110,18 @@ Tracer code has advantages: we see something working early, we build structure t
 - [x] Got basic "Cinematic Reel Creator" header showing
 - [x] **Status**: Frontend running, looks minimal and clean
 
+### [ ] Bullet #3: Backend structure (separation of concerns)
+We need to split backend into proper folders for learning:
+- [x] `config/` - express setup
+- [x] `routes/` - define endpoints
+- [x] `controllers/` - handle requests and health check logic
+- [x] `server.js` - write it together
+- **Goal**:
+HTTP Request → Route → Middleware → Controller → Service → Response (orthogonality!)
+
 ---
 
 ## What's Next
-
-### [ ] Bullet #3: Backend structure (separation of concerns)
-We need to split backend into proper folders for learning:
-- Create `routes/` - define endpoints
-- Create `controllers/` - handle requests
-- Create `services/` - business logic
-- Create `utils/` - helper functions
-- Refactor existing health check through this structure
-- **Goal**: Request flows route → controller → service (orthogonality!)
 
 ### [ ] Bullet #4: File uploads (backend)
 - Install `multer` for handling uploads
