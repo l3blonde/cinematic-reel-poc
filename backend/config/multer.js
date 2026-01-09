@@ -1,9 +1,10 @@
 const multer = require("multer")
 const path = require("path")
+const config = require("./config")
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "../uploads/"))
+        cb(null, path.join(__dirname, "..", config.uploadDir))
     },
     filename: (req, file, cb) => {
         const uniqueName = `${Date.now()}-${file.originalname}`
@@ -12,21 +13,26 @@ const storage = multer.diskStorage({
 })
 
 const fileFilter = (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif|mp4|mov|avi|webm/
+    const allowedTypes = /jpeg|jpg|png|gif|mp4|mov|avi|mp3|wav|m4a/
+    const allowedMimetypes = /image\/(jpeg|jpg|png|gif)|video\/(mp4|quicktime|x-msvideo)|audio\/(mpeg|wav|mp4)/
+
     const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase())
-    const mimetype = allowedTypes.test(file.mimetype)
+    const mimetype = allowedMimetypes.test(file.mimetype)
 
     if (extname && mimetype) {
         cb(null, true)
     } else {
-        cb(new Error("Only images and videos allowed!"), false)
+        cb(new Error("Only images, videos, and audio files allowed"), false)
     }
 }
 
 const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
-    limits: { fileSize: 100 * 1024 * 1024 }, // 100MB max
+    limits: {
+        fileSize: config.maxFileSize,
+        files: config.maxFileCount,
+    },
 })
 
 module.exports = upload

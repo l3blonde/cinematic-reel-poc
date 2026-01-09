@@ -1,9 +1,14 @@
-const express = require('express');
-const healthController = require('../controllers/healthController');
+const express = require("express")
+const router = express.Router()
 
-const router = express.Router();
+// Import route modules
+const healthRoutes = require("./health.routes")
+const uploadRoutes = require("./upload.routes")
+const reelRoutes = require("./reel.routes")
 
-router.get('/', healthController.getHome);
-router.get('/health', healthController.getHealth);
+// Mount routes
+router.use("/", healthRoutes) // /api/v1/health
+router.use("/uploads", uploadRoutes) // /api/v1/uploads
+router.use("/reels", reelRoutes) // /api/v1/reels
 
-module.exports = router;
+module.exports = router

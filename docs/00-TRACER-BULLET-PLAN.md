@@ -119,58 +119,103 @@ We need to split backend into proper folders for learning:
 - **Goal**:
 HTTP Request → Route → Middleware → Controller → Service → Response (orthogonality!)
 
+### [x] Bullet #4: File upload + Video generation (CORE POC FEATURE)
+This is the heart of our POC,
+we want to upload files and generate a cinematic reel.
+
+**Backend:**
+- [x] Installed `multer` for handling multipart uploads
+- [x] Created upload config with file validation (images + videos only)
+- [x] Store files in `backend/uploads/` temporarily
+- [x] Fixed absolute path issue with `path.join(__dirname)`
+**Video Processing:**
+- [x] Installed FFmpeg CLI (`brew install ffmpeg`)
+- [x] Installed `fluent-ffmpeg` npm package
+- [x] Created `services/videoService.js` (business logic layer)
+- [x] Built `generateReel()` function that:
+  - Takes uploaded images
+  - Loops each image for 3 seconds
+  - Scales to 1280x720
+  - Concatenates into smooth MP4
+  - Saves to `backend/output/`
+- [x] Created reel generation route + controller
+**Frontend:**
+- [x] Built `UploadForm.jsx` component
+- [x] File picker for selecting dive photos/videos
+- [x] Shows uploaded files list
+- [x] "Generate Reel" button sends to backend
+- [x] Download link appears when video ready
+-  Added CORS support so frontend can talk to backend
+
+**Test passed**:
+Upload 2-3 images from browser → Click "Generate Reel" → Download MP4 video of your dive photos as a slideshow
+**Status**: WORKING! End-to-end POC video generation feature complete.
+We can create simple cinematic reels from the browser.
+
+### [x] Bullet #5: Cinematic Effects (Filters + Transitions + Audio)
+Add professional polish to make dive videos look cinematic:
+
+**Filters Implemented:**
+- [x] Deep Blue (Underwater): Enhanced blues, brightness adjustments
+- [x] Vintage Explorer: Retro film look with grain
+- [x] Biolume (Glowing): Saturated colors for bioluminescence
+- [x] Ultra Vivid: High contrast and saturation
+
+**Transitions Implemented:**
+- [x] None (Hard Cuts): Instant clip changes
+- [x] Fade: Smooth black fades between clips
+- [x] Crossfade: Blended transitions (images only)
+
+**Audio Support:**
+- [x] Import MP3/WAV background music
+- [x] Music starts at 10 seconds (skips intros)
+- [x] Auto-mixed with video length using `-shortest`
+- [x] Optional feature - reels work without audio
+
+**Dynamic Reel Length:**
+- [x] 2-3 files: 3 seconds each = 6-9 second reels
+- [x] 4-5 files: 2.5 seconds each = 10-12.5 second reels
+- [x] 6+ files: 2 seconds each = 12+ second reels
+- [x] Videos keep original duration
+- [x] Optimized for social media (Instagram/TikTok)
+
+**Status**: COMPLETE! All filters, transitions, and audio working with images and videos.
+
 ---
 
 ## What's Next
 
-### [ ] Bullet #4: File uploads (backend)
-- Install `multer` for handling uploads
-- Create upload route + controller + service
-- Validate file types (images + videos only)
-- Store files temporarily
-- **Test**: Can upload a dive photo from Postman
-
-### [ ] Bullet #5: Upload UI (frontend)
-- Build file picker component
-- Handle drag-and-drop
-- Show upload progress
-- Display uploaded files (thumbnails)
-- **Test**: Upload dive photos/videos from browser
-
-### [ ] Bullet #6: FFmpeg basics
-- Install `fluent-ffmpeg` and `ffmpeg-static`
-- Create `videoService.js`
-- Test basic operations (format conversion, frame extraction)
-- **Test**: Can we make FFmpeg do something simple?
-
-### [ ] Bullet #7: Generate simple reel
-- Combine images into video sequence
-- Add transitions between images
-- Set timing/duration
-- Add fade effects
-- **Test**: 3 dive photos → 10 sec reel
-
-### [ ] Bullet #8: Handle video clips too
-- Mix video clips with images
-- Add optional background music
-- Apply cinematic filters (black bars, 16:9 aspect)
-- **Test**: Images + video clips → cinematic reel
-
-### [ ] Bullet #9: Wire up frontend
-- Add "Generate Reel" button
-- Show processing spinner
-- Preview generated reel
-- Download button
-- **Test**: End-to-end from browser
-
-### [ ] Bullet #10: Handle errors properly
-- Add error middleware
-- Log errors to console
-- Clean up temp files after processing
-- Validate inputs
-- **Test**: What happens if upload fails?
-
-### [ ] Bullet #11: Document what we learned
-- Document test results
+### [ ] Bullet #6: Digital Ocean Deployment
+Deploy the working POC so professors can test it live:
+- Set up Digital Ocean Droplet (Ubuntu server)
+- Install Node.js, FFmpeg on server
+- Configure Nginx reverse proxy
+- Deploy backend + frontend
+- Add environment variables for production
+- Test live: Upload images → Generate reel from any browser
+- **Deliverable**: Live URL for professor to test POC
 
 ---
+
+## Future Enhancements (Post-POC)
+
+### [ ] Marine Soundscape Mixer
+- Connect to Freesound API or Spotify API for music and ocean sounds
+- Overlay whale songs, dolphin clicks, reef ambience
+- User picks sounds from dropdown
+
+### [ ] Dive Log Text Overlays
+- Pre-designed text templates for dive info
+- User fills in location, depth, marine life spotted
+- FFmpeg burns text into video
+
+### [ ] Preview & Polish
+- Preview reel in browser before download
+- Progress bar with percentage
+- Upload More Files
+- Drag-and-drop file upload
+- Mobile-friendly responsive design
+
+
+---
+
