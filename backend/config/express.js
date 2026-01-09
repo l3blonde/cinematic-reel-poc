@@ -4,9 +4,17 @@ const cors = require("cors")
 function setupExpress() {
     const app = express()
 
+    const allowedOrigins = ["http://localhost:5173", "http://165.232.82.22"]
+
     app.use(
         cors({
-            origin: "http://localhost:5173",
+            origin: (origin, callback) => {
+                if (!origin || allowedOrigins.includes(origin)) {
+                    callback(null, true)
+                } else {
+                    callback(null, true)
+                }
+            },
             credentials: true,
         }),
     )
